@@ -8,29 +8,25 @@ Requires PHP: 7.2
 License: GPLv2 or later
 License URI: GPLv2 or later
 
-Free responsive multimedia gallery displaying images and embedded video from YouTube and Vimeo while integrating social sharing and SEO elements.
+Free Responsive Fast-Loading Designer Video Embed Player for YouTube and Vimeo
 
 == Description ==
 
-This responsive WordPress multimedia gallery with the ultimate flexibility in displaying images and embedded video from YouTube and Vimeo also integrates powerful social sharing and SEO functionality.
+This WordPress responsive designer fast-loading video player with short code generator makes it easy to add beautiful embedded video to any page or post.
 
 Features include:
 
-*   Full color management for header bar with button filters and pagination below gallery.
-*   Multiple choices in lightbox display.
-*   Create any number of galleries with filters.
-*   Galleries easily added to HTML pages with short code.
-*   Pagination is enabled on front end for more than 24 items within a gallery or filter.
-*   Search functionality in admin for each gallery.
-*   Gallery items can be images or embedded video from YouTube or Vimeo.
-*   Image thumbnails can be set to produce an enlarged image or video in popover.
-*   Each item has a caption and description field that can include keywords, tags, hashtags.
-*   Each item includes social sharing with Facebook and Twitter that when shared, includes content from popover, website URL and link to content on website where gallery is installed.
+*   Responsive designer player with rounded corners and drop shadow.
+*   Embed video by inserting short code on any page or post.
+*   Compatible with all WordPress themes.
+*   Fast performance by loading thumbnail only until play button is clicked.
+*   Loads video files that slow the site only when video is played.
+*   Generates short code by adding YouTube or Vimeo ID and clicking button to generate.
 
 == Installation ==
 
 1. Install the plugin either via the WordPress.org plugin directory, or by uploading the files to your server (in the /wp-content/plugins/ directory).
-2. Activate the Ultimate WP Multimedia Gallery plugin through the 'Plugins' menu in WordPress.
+2. Activate the Fast and Responsive Youtube Vimeo Embed plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 
@@ -38,13 +34,9 @@ Features include:
 
 Yes and it displays optimally on desktops, laptops and all mobile devices.
 
-= Are other plugins needed for social sharing? =
+= Is there any cost to this plugin? =
 
-A free SEO plugin such as Yoast will allow content to display with the featured image or video, site URL, and link back to content on website.
-
-= Is there a pro version with more functionality? =
-
-The pro version includes with each gallery content item, options for YouTube channel subscription, and custom call to action button labels and links.
+No it is free to download and use.
 
 == Changelog ==
 

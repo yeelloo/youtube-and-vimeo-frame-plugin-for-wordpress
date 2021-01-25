@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Fast and Responsive Youtube Vimeo Embed
 	Plugin URI: http://webpuzzlemaster.com
-	Description: Youtube, Vimeo Video Frame for WPM Only, Uses shortcode YouTube: [ytvf id="VideoIdHere"] and Vimeo: [ytvf id="VideoIdHere" type="vimeo"]
+	Description: Free Responsive Fast-Loading Designer Video Embed Player for YouTube and Vimeo
 	Author: WebPuzzleMaster
 	Version: 1.0
 	Author URI: https://webpuzzlemaster.com/
@@ -31,6 +31,180 @@ class YTVF {
 	private static function init_hooks() {
 		self::$initiated = true;
 		add_shortcode( 'ytvf', array( 'YTVF', 'ytvf_shortcode' ) );
+		add_action( 'admin_menu', ['YTVF', '_admin_menu'] );
+
+	}
+
+	public static function _admin_menu(){
+		add_menu_page('YTVF Embed', 'YTVF Embed', 'edit_posts', 'ytvf-embed', ['YTVF', 'ytvf_settings'], 'dashicons-youtube', 40);
+        add_submenu_page( 'ytvf-settings', 'YTVF Embed', 'YTVF Embed', 'edit_posts', 'ytvf-embed', ['YTVF','ytvf_settings']);
+	}
+
+	public static function ytvf_settings(){
+		// Generate Shortcode
+		?>
+		<div id="ytvf_wraps" style="max-width: 722px; margin-top: 22px;">
+			<section id="ytvf_heaher" style="padding: 0px; position: relative; border: none; margin: 0px;">
+				<div class="ytvf_logo">
+			    	<img src="<?php echo YTVF_URL.'/header-banner-772x250.png' ?>" alt="header-banner-772x250.png" style="max-width: 100%;display: block;">
+			    </div>
+			    <div class="ytvf_version" style="position: absolute;right: 6px;bottom: 8px;">
+			    	<code style="background: #f1f1f1;color: #333333;">v1.0</code>
+			    </div>
+			</section>
+			<div id="ytvf_body" style="background: #fff none repeat scroll 0 0;border: 1px solid #0b4c8f;box-sizing: border-box;height: auto;margin: -1px auto 50px;overflow: hidden;padding: 18px 18px;position: relative;border-top: none;">
+		        <table class="responsive" style="width: 100%">
+		            <tbody>
+		            	<tr>
+		            		<td>
+		            			<div class="ytvfOptions" style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 7px 7px; margin-bottom: 7px;">
+		            				<div class="ytvfRadioGrp" style="padding: 12px 8px 9px; display: flex; background: #0d3364; color: #fff; font-size: 16px; border-radius: 4px;">
+		            					<input type="radio" name="ytvfSites" value="youtube" id="ytvfSites[1]">
+		            					<label style="line-height: 8px; width: 100%" for="ytvfSites[1]">Generate For YouTube</label>
+		            				</div>
+		            				<div class="ytvfRadioGrp" style="padding: 12px 8px 9px; display: flex; background: #0d3364; color: #fff; font-size: 16px; border-radius: 4px;">
+		            					<input type="radio" name="ytvfSites" value="vimeo" id="ytvfSites[2]">
+		            					<label style="line-height: 8px; width: 100%" for="ytvfSites[2]">Generate For Vimeo</label>
+		            				</div>
+		            			</div>
+		            			<div class="ytvfOptions" style="display: none; grid-template-columns: 1fr 1fr; grid-gap: 7px 7px; ">
+		            				<div class="ytvfRadioGrp" style="padding: 12px 8px 9px; display: flex; background: #0d3364; color: #fff; font-size: 16px; border-radius: 4px;">
+		            					<input type="radio" name="ytvfMethods" value="url" id="ytvfMethods[1]">
+		            					<label style="line-height: 8px; width: 100%" for="ytvfMethods[1]">Generate From Video URL</label>
+		            				</div>
+		            				<div class="ytvfRadioGrp" style="padding: 12px 8px 9px; display: flex; background: #0d3364; color: #fff; font-size: 16px; border-radius: 4px;">
+		            					<input type="radio" name="ytvfMethods" value="id" id="ytvfMethods[2]">
+		            					<label style="line-height: 8px; width: 100%" for="ytvfMethods[2]">Generate From Video ID</label>
+		            				</div>
+		            			</div>
+		            		</td>
+		            	</tr>
+		            	<tr>
+		            		<td>
+		            			<div class="ytvfGenRow" style="display: none; grid-template-areas: 'instruction instruction' 'url btn'; grid-template-columns: 1fr;">
+			            			<p style="grid-area: instruction;">To generate shortcode for your Youtube/Vimeo video, Enter your video url below and Click generate.</p>
+			            			<input class="code" style="grid-area: url;margin: 0;border-radius: 0;border-right: 0" type="url" name="ytvfurl" id="ytvfurl">
+			            			<input style="grid-area: btn; width: 90px;border-radius: 0;" type="button" class="button primary-button ytvfGenBtn" value="Generate">
+		            			</div>
+		            		</td>
+		            	</tr>
+		            	<tr>
+		            		<td class="ytvfGenResRow" style="display: none">
+		            			<div class="ytvfGenRow" style="display: grid;grid-template-areas:'instruction instruction' 'url btn';grid-template-columns: 1fr;padding-top: 20px;">
+			            			<p style="grid-area: instruction;text-align: center;margin: 0;"><strong>Copy the shortcode from below, Which can be used on pages, posts, wigdgets</strong></p>
+			            			<input class="code" style="grid-area: url;border: none;font-size: 24px;letter-spacing: -0.8px;color: #656565;text-align: center;" type="url" name="ytvfShortCode" id="ytvfShortCode">
+		            			</div>
+		            		</td>
+		            	</tr>
+		        	</tbody>
+		        </table>
+		    </div>
+		</div>
+		<script>
+			jQuery(document).ready(function($) {
+				// Copy ShortCode
+				function _copyToClipboard(){
+					jQuery('input#ytvfShortCode').select();
+					document.execCommand('copy')
+					jQuery('input#ytvfurl').focus()
+					alert('Shortcode copied to clipboard!');
+				}
+
+				// User Prefarance
+				var _selection = {site:'', type:''};
+				jQuery('input[name="ytvfSites"]').change( function(event) {
+					event.preventDefault();
+					_selection.site = $(this).val()
+					jQuery('.ytvfOptions').css('display', 'grid');
+				});
+				jQuery('input[name="ytvfMethods"]').change( function(event) {
+					event.preventDefault();
+					_selection.type = $(this).val()
+					if( _selection.site != '' && _selection.type != '' )
+						jQuery('.ytvfGenRow').css('display', 'grid');
+					else 
+						jQuery('.ytvfGenRow').css('display', 'none');
+				});
+
+				// Generate ShortCode
+				jQuery('html').on('click', '.ytvfGenBtn', function(event) {
+					event.preventDefault();
+					jQuery('.ytvfGenResRow').slideUp('400');
+					var _url = jQuery('#ytvfurl').val();
+					if( _url.length > 0){
+						// YoouTube
+						if( _selection.site == 'youtube' )
+						{
+							if( _selection.type == 'url' ){
+								try {
+									var _urlObj = new URL(_url);
+									if( _urlObj.host.match('youtube') !== null ){
+										jQuery('#ytvfShortCode').val(`[ytvf id="${_urlObj.searchParams.get('v')}"]`);
+									}
+									else {
+										alert('Invalid YouTube URL');
+										return false;
+									}
+								} catch (_) {
+									alert('Invalid YouTube URL');
+									return false;
+								}
+							}
+							else{
+								if(_url.length < 16){
+									jQuery('#ytvfShortCode').val(`[ytvf id="${_url}"]`);
+								}
+								else {
+									alert('Invalid YouTube ID');
+									return false;
+								}
+							}
+							jQuery('.ytvfGenResRow').slideDown('slow', function() {
+								_copyToClipboard()
+							});
+							
+						} else if(_selection.site == 'vimeo')
+						{
+							if( _selection.type == 'url' ){
+								try {
+									var _urlObj = new URL(_url);
+									if( _urlObj.host.match('vimeo') !== null ){
+										var vimeoReg = /https?:\/\/(?:www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/;
+										var match = _url.match(vimeoReg);
+										jQuery('#ytvfShortCode').val(`[ytvf id="${match[3]}" type="vimeo"]`);
+									} else {
+										alert('Invalid Vimeo URL');
+										return false;
+									}
+								} catch (_) {
+									alert('Invalid Vimeo URL');
+									return false;
+								}
+							}
+							else{
+								if( _url.length < 16 ){
+									jQuery('#ytvfShortCode').val(`[ytvf id="${_url}" type="vimeo"]`);
+								}
+								else {
+									alert('Invalid Vimeo ID');
+									return false;
+								}
+							}
+							jQuery('.ytvfGenResRow').slideDown('slow', function() {
+								_copyToClipboard()
+							});
+						
+						} else {
+							alert('Please select your option');
+							return false;
+						}
+						console.log(_selection)
+						
+					}
+				});
+			});
+		</script>
+		<?php
 	}
 
 	public static function get_video_thumb($_id, $type){
