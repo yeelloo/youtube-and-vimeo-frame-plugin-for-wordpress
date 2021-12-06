@@ -21,12 +21,13 @@ Features include:
 *   Compatible with all WordPress themes.
 *   Fast performance by loading thumbnail only until play button is clicked.
 *   Loads video files that slow the site only when video is played.
-*   Generates short code by adding YouTube or Vimeo ID and clicking button to generate.
+*   Generates short code with choice of adding ID or URL from YouTube or Vimeo to generate.
 
 == Installation ==
 
 1. Install the plugin either via the WordPress.org plugin directory, or by uploading the files to your server (in the /wp-content/plugins/ directory).
 2. Activate the Fast and Responsive Youtube Vimeo Embed plugin through the 'Plugins' menu in WordPress.
+3. Go to YTVF Embed in admin menu.
 
 == Frequently Asked Questions ==
 

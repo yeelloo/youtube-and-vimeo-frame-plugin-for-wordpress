@@ -45,9 +45,9 @@ class YTVF {
 		?>
 		<div id="ytvf_wraps" style="max-width: 722px; margin-top: 22px;">
 			<section id="ytvf_heaher" style="padding: 0px; position: relative; border: none; margin: 0px;">
-				<div class="ytvf_logo">
-			    	<img src="<?php echo YTVF_URL.'/header-banner-772x250.png' ?>" alt="header-banner-772x250.png" style="max-width: 100%;display: block;">
-			    </div>
+				<a class="ytvf_logo" target="_blank" href="https://wordpress.org/plugins/fast-and-responsive-youtube-vimeo-embed/">
+			    	<img src="https://ps.w.org/fast-and-responsive-youtube-vimeo-embed/assets/banner-772x250.png" alt="header-banner-772x250.png" style="max-width: 100%;display: block;">
+			    </a>
 			    <div class="ytvf_version" style="position: absolute;right: 6px;bottom: 8px;">
 			    	<code style="background: #f1f1f1;color: #333333;">v1.0</code>
 			    </div>
